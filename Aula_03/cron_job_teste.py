@@ -1,0 +1,1 @@
+print("Verificando novos dados...")
