@@ -21,15 +21,24 @@ with open(arquivo, mode='r', encoding='utf-8') as file:
 
 vendas
 # %%
-# 2.Processar Dados:
+##1.1 calcular coluna valor venda (2 forma calcular vl venda)
+for i in vendas:
+    vl_total_venda = int(i['Quantidade']) * float(i['vl_Venda'])
+    i['vl_total_venda'] = vl_total_venda
+
+vendas
+# %%
+# 2.Processar Dados com categoria sendo a chave:
 
 chaves = [i['Categoria'] for i in vendas]
 chaves = set(chaves) # mantem valores unicos
 chaves = list(chaves) # tranf. em lista para poder navegar nos itens
 ## crir lista de dicionarios com as categorias
+
 vendas_por_categorias = dict()
 for c in chaves:
     vendas_por_categorias[c] = []
+
 ## preenche os dicionários separando por categoria
 for item in vendas:
     for c in chaves:
@@ -44,10 +53,12 @@ total_por_categoria = {}
 for categoria, itens_venda in vendas_por_categorias.items():
     # Inicializa o total para a categoria atual
     total_vendas = 0
+
     # Itera sobre a lista de dicionários para cada categoria
     for item in itens_venda:
         # Acumula o valor de 'total_venda' de cada item
         total_vendas += item['total_venda']
+        
     # Atribui a soma total ao dicionário de resultados
     total_por_categoria[categoria] = total_vendas
 
