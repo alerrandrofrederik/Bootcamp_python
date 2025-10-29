@@ -55,12 +55,16 @@ for i in funcionario:
             com_erro.append(i)
 
         else:
+            BONUS_BASE = 1000
+            salario = float(i['salario'])
+            bonus_percentual = float(i['bonus_percentual'])
+            i['bonus_final'] = BONUS_BASE + salario * bonus_percentual
             sem_erro.append(i)
     except ValueError:
         i['erro'] = 'valor invalido check os valores'
         com_erro.append(i)
 
-com_erro
+sem_erro
 # %%
 #  registros inválidos com o motivo do erro em csv
 
@@ -72,3 +76,11 @@ with open('erros.csv', mode='w', encoding='utf-8', newline='') as file:
     escritor.writerows(com_erro)
 
 # %%
+# relatorio_individual.csv: somente registros válidos com o cálculo de bonus_final.
+
+with open('relatorio_individual.csv', mode='w', encoding='utf-8', newline='') as file:
+    nomes_colunas = sem_erro[0].keys()
+    escritor = csv.DictWriter(file, fieldnames=nomes_colunas)
+
+    escritor.writeheader()
+    escritor.writerows(sem_erro)
