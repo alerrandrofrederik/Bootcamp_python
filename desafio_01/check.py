@@ -84,3 +84,44 @@ with open('relatorio_individual.csv', mode='w', encoding='utf-8', newline='') as
 
     escritor.writeheader()
     escritor.writerows(sem_erro)
+
+# %%
+# kpis.json: métricas agregadas, contendo:
+
+funcionarios_por_area = {}
+# dicionario de funcionários por área
+chaves = list(set([i['area'] for i in sem_erro]))
+
+for c in chaves:
+    funcionarios_por_area[c] = []
+
+for linha in sem_erro:
+    for c in chaves:
+        if linha['area'] == c:
+            funcionarios_por_area[c].append(linha)
+
+
+funcionarios_por_area
+# qtd_por_categoria
+# qtd_funcionarios = len(funcionarios_por_area['Vendas'])
+# qtd_funcionarios
+# %%
+# quantidade de funcionários por área
+qtd_funcionarios_por_area = {area: len(funcionarios) for area, funcionarios in funcionarios_por_area.items()}
+
+qtd_funcionarios_por_area
+
+# %%
+# média de salário por área
+media_salarial_por_area = {}
+for area, funcionarios in funcionarios_por_area.items():
+
+    lista_salarios = [f['salario'] for f in funcionarios]
+
+    salario = sum(lista_salarios)
+
+    qtd_funcionarios = len(lista_salarios)
+
+    media_salarial_por_area[area] = salario / qtd_funcionarios
+
+media_salarial_por_area
