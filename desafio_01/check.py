@@ -102,9 +102,7 @@ for linha in sem_erro:
 
 
 funcionarios_por_area
-# qtd_por_categoria
-# qtd_funcionarios = len(funcionarios_por_area['Vendas'])
-# qtd_funcionarios
+
 # %%
 # quantidade de funcionários por área
 qtd_funcionarios_por_area = {area: len(funcionarios) for area, funcionarios in funcionarios_por_area.items()}
@@ -125,3 +123,12 @@ for area, funcionarios in funcionarios_por_area.items():
     media_salarial_por_area[area] = salario / qtd_funcionarios
 
 media_salarial_por_area
+
+# %%
+# bônus total geral
+lista_bonus_geral = [linha['bonus_final'] for linha in sem_erro]
+bonus_total_geral = sum(lista_bonus_geral)
+bonus_total_geral
+
+# for bonus in sem_erro:
+#     lista_bonus_geral.append[i]
