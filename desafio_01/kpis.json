@@ -1,0 +1,20 @@
+[
+    {
+        "qtd_funcionarios_por_area": {
+            "TI": 2,
+            "Vendas": 2,
+            "Operações": 1
+        },
+        "media_salarial_por_area": {
+            "TI": 6550.0,
+            "Vendas": 4650.0,
+            "Operações": 5100.0
+        },
+        "bonus_total_geral": 7276.0,
+        "top_3_Funcionarios_bonus": [
+            "Maria Alves",
+            "Ana Souza",
+            "Pedro Santos"
+        ]
+    }
+]

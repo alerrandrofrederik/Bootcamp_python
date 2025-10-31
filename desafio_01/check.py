@@ -132,3 +132,29 @@ bonus_total_geral
 
 # for bonus in sem_erro:
 #     lista_bonus_geral.append[i]
+
+# %%
+# top 3 funcionários com maior bônus final
+lista_ordenada = sorted(sem_erro,key=lambda x: x['bonus_final'], reverse=True)
+top_3_Funcionarios_bonus = [i['nome'] for i in lista_ordenada[0:3]]
+
+top_3_Funcionarios_bonus
+# %%
+#kpis.json
+
+kpis = [
+    {
+        'qtd_funcionarios_por_area': qtd_funcionarios_por_area,
+        'media_salarial_por_area': media_salarial_por_area,
+        'bonus_total_geral': bonus_total_geral,
+        'top_3_Funcionarios_bonus':top_3_Funcionarios_bonus
+    }
+]
+
+kpis
+# %%
+#salvar em json
+import json
+
+with open('kpis.json', mode='w', encoding='utf-8') as file:
+    json.dump(kpis, file, indent=4, ensure_ascii=False)
