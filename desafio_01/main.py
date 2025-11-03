@@ -107,17 +107,50 @@ def get_funcionarios_validos_por_area(dados_validos: dict) -> dict:
 
 
 def total_funcionarios_por_area(dados_funcioarios: dict) -> dict:
-    '''Função para calcular a quantidade de funcionários por are
+    '''Função para calcular a quantidade de funcionários por area
 
     Parametros:
         dados_funcioarios: Dicionário de Funcoários por area
 
     return:
-        Quantidade de funcionários por area
+        dicionário com Quantidade de funcionários por area
     '''
     qtd_funcionarios_por_area = {area: len(funcionarios) for area, funcionarios in dados_funcioarios.items()}
 
     return qtd_funcionarios_por_area
+
+def media_salario_por_area(dados_funcioarios: dict) -> dict:
+    '''Função para calcular a media salarial por area
+
+    Parametros:
+        dados_funcioarios: Dicionário de Funcoários por area
+
+    return:
+        dicionário com media salarial por area
+    '''
+    media_salarial_por_area = {}
+    for area, funcionarios in dados_funcioarios.items():
+
+        lista_salarios = [f['salario'] for f in funcionarios]
+
+        salario = sum(lista_salarios)
+
+        qtd_funcionarios = len(lista_salarios)
+
+        media_salarial_por_area[area] = salario / qtd_funcionarios
+
+    return media_salarial_por_area
+
+def bonus_geral(dados_validos: dict) -> float:
+    lista_bonus_geral = [linha['bonus_final'] for linha in dados_validos]
+    bonus_total_geral = sum(lista_bonus_geral)
+    return bonus_total_geral
+
+def top_3_funcionarios(dados_validos: dict) -> list:
+    lista_ordenada = sorted(dados_validos,key=lambda x: x['bonus_final'], reverse=True)
+    top_3_Funcionarios_bonus = [i['nome'] for i in lista_ordenada[0:3]]
+
+    return top_3_Funcionarios_bonus
 
 def main():
     '''Função principal para integrar as funções anteriores
@@ -127,7 +160,10 @@ def main():
     dados_validacao = valida_dados(dados_brutos)
     funcionarios_area = get_funcionarios_validos_por_area(dados_validacao['sem_erro'])
     funcionarios_area_qtd = total_funcionarios_por_area(funcionarios_area)
-    print(funcionarios_area_qtd)
+    salario_area_media = media_salario_por_area(funcionarios_area)
+    bonus_total = bonus_geral(dados_validacao['sem_erro'])
+    top_3 = top_3_funcionarios(dados_validacao['sem_erro'])
+    print(top_3)
     # dados_brutos = ler_csv(nome_arquivo)
     # dados_processados = processar_dados(dados_brutos)
     # vendas_categoria = calcular_vendas_categoria(dados_processados)
