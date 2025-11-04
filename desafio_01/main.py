@@ -1,4 +1,5 @@
 import csv
+import json
 
 arquivo = 'funcionarios.csv'
 
@@ -152,6 +153,30 @@ def top_3_funcionarios(dados_validos: dict) -> list:
 
     return top_3_Funcionarios_bonus
 
+def salva_kpis(qtd_funcionarios_area: dict, md_salararial_area: dict, bonus_geral: float, top_3_bonus: list) ->list:
+    '''Função para salvar os kpis em um arquivo json
+
+    parametros:
+        qtd_funcionarios_are: dicionário contendo  a quantidade de funcionarios por area
+
+        md_salararial_area: media_salarial_por_area
+
+        bonus_geral: valor total do bonus
+
+        top_3_bonus: lista com o nome dos top 3 funcionários com maior bonus
+    '''
+    kpis = [
+        {
+            'qtd_funcionarios_por_area': qtd_funcionarios_area,
+            'media_salarial_por_area': md_salararial_area,
+            'bonus_total_geral': bonus_geral,
+            'top_3_Funcionarios_bonus':top_3_bonus
+        }
+    ]
+
+    with open('kpis.json', mode='w', encoding='utf-8') as file:
+        json.dump(kpis, file, indent=4, ensure_ascii=False)
+
 def main():
     '''Função principal para integrar as funções anteriores
     '''
@@ -163,12 +188,8 @@ def main():
     salario_area_media = media_salario_por_area(funcionarios_area)
     bonus_total = bonus_geral(dados_validacao['sem_erro'])
     top_3 = top_3_funcionarios(dados_validacao['sem_erro'])
-    print(top_3)
-    # dados_brutos = ler_csv(nome_arquivo)
-    # dados_processados = processar_dados(dados_brutos)
-    # vendas_categoria = calcular_vendas_categoria(dados_processados)
-    # for categoria, total in vendas_categoria.items():
-    #     print(f'{categoria}: ${total}')
+    salva_kpis(funcionarios_area_qtd, salario_area_media, bonus_total, top_3)
+
 
 if __name__ == '__main__':
     main()
